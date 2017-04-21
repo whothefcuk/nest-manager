@@ -6750,7 +6750,9 @@ def showChgLogOk() {
 }
 
 def getDaysSinceInstall() {
-	def start = Date.parse("E MMM dd HH:mm:ss z yyyy", atomicState?.installData.dt)
+	def instDt = atomicState?.installData?.dt
+	if(instDt == null || instDt == "Not Set") { return 0 }
+	def start = Date.parse("E MMM dd HH:mm:ss z yyyy", instDt)
 	def stop = new Date()
 	if(start && stop) {
 		return (stop - start)
